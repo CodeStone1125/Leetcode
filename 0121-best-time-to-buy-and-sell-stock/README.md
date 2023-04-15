@@ -28,3 +28,66 @@ Note that buying on day 2 and selling on day 1 is not allowed because you must b
 	<li><code>0 &lt;= prices[i] &lt;= 10<sup>4</sup></code></li>
 </ul>
 </div>
+<h2>解法一: Two pointer</h2>
+
+
+```
+class Solution {
+    public int maxProfit(int[] prices) {
+        int profit=0;
+        int current=0;
+        int l=0; int r=1;
+
+        while(r<prices.length){  //右價大於左價
+            if(prices[l]<prices[r]){
+                current=prices[r]-prices[l];
+                profit=Math.max(current,profit);
+            }
+            else if(prices[l]==prices[r]){//左右同價格
+                
+            }
+            else{  //右價小於左價
+                l=r;
+            }
+            r++;
+            
+
+        }
+
+        return profit;
+        
+    }
+}
+```
+**Main idea: 左買右賣**
+
+比較左右pointer價格會遇到以下三種情況:
+* **左>右**
+* **左=右**
+* **左<右**
+
+1. **左<右**
+當右邊的價格比左邊大的時候，代表也許左邊是最低價格，所以計算利潤如果比現有最大利潤大則更新利潤。
+```
+if(prices[l]<prices[r]){
+    current=prices[r]-prices[l];
+    profit=Math.max(current,profit);
+}
+```
+2. **左=右** 
+左右同價格時，則沒有比較的必要。
+```
+else if(prices[l]==prices[r]){
+                
+}
+```
+3. **左>右**
+另一方面當右價小於左價時代表現在右邊指的才有可能是最低價，因此左pointer直接指到右價位置。
+```
+else{  //右價小於左價
+    l=r;
+ }
+```
+最後不論何種情況，右指針都會向下一個尋找直到最後一個價格。
+* **Time complexity：O(n)**
+* **Space complexity:O(1)**
