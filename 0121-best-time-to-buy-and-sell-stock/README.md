@@ -28,7 +28,16 @@ Note that buying on day 2 and selling on day 1 is not allowed because you must b
 	<li><code>0 &lt;= prices[i] &lt;= 10<sup>4</sup></code></li>
 </ul>
 </div>
-<h2>解法一: Two pointer</h2>
+<h2>解法一: 暴力法</h2>
+
+
+**Main idea: 計算出所有區間的價差**
+* **Time complexity：O(n^2)**
+* **Space complexity:O(1)**
+
+![](https://i.imgur.com/MHDUTKM.png)
+
+<h2>解法二: Two pointer</h2>
 
 
 ```
@@ -91,3 +100,5 @@ else{  //右價小於左價
 最後不論何種情況，右指針都會向下一個尋找直到最後一個價格。
 * **Time complexity：O(n)**
 * **Space complexity:O(1)**
+* 
+![](https://i.imgur.com/X9BRzPg.png)
