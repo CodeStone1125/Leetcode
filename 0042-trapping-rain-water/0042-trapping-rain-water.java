@@ -1,26 +1,29 @@
 class Solution {
-    public int trap(int[] arr) {
-        int n = arr.length;
-        int[] ltr =new int[n];
-        int[] rtl = new int[n];
-        ltr[0] = arr[0];
-        rtl[n-1] = arr[n-1];
+    public int trap(int[] height) {
+        
+        int count = 0;
+        if (height == null || height.length == 0) return count;
+        
+        
+        int l = 0; int r = height.length-1;
+        int leftMax=height[l];
+        int rightMax=height[r];
+            
+        while(l<r){
+            if(leftMax<rightMax){
+                l+=1;
+                leftMax = Math.max(leftMax,height[l]);
+                count += (leftMax-height[l]);
+            }
 
-        for(int i =1;i<n;i++){
-            ltr[i] = Math.max(arr[i],ltr[i-1]);
-        }
-
-        for(int i =n-2;i>=0;i--){
-            rtl[i] = Math.max(arr[i],rtl[i+1]); 
-        }
-
-        int count =0;
-
-        for(int i =0;i<n;i++){
-            int min = Math.min(ltr[i],rtl[i]);
-            count += ((min-arr[i])>0) ? (min-arr[i]) : 0;
-        }
-
+            else{
+                    r-=1;
+                    rightMax = Math.max(rightMax,height[r]);
+                    count += (rightMax-height[r]);
+                
+            }
+        }  
+        
         return count;
     }
 }
