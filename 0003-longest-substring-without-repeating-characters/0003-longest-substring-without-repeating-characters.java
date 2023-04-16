@@ -12,15 +12,10 @@ class Solution {
                 set.remove(s.charAt(l));
                 l++;
                 Max=Math.max(r-l+1,Max);
-                System.out.printf("%s,%s\n",s.charAt(l),s.charAt(r));
-                System.out.printf("Max,current:%d,%d\n",Max,r-l+1);
+
             }
             set.add(s.charAt(r));
             Max=Math.max(r-l+1,Max);
-            System.out.printf("%s,%s\n",s.charAt(l),s.charAt(r));
-            System.out.printf("Max,current:%d,%d\n",Max,r-l+1);
-            
-            
             
 
         }
