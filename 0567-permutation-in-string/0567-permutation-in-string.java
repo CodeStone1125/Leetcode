@@ -21,23 +21,20 @@ class Solution {
             score=0;
             for (int i=0;i<26;i++) { //確認是substring的permutation
                 if(count1[i]==count2[i]){ //確認所有字母出現次數
-                    score+=count1[i];   //相同則加分
-                    System.out.printf("s1的%d有%d個s2的%d有%d個，score=%d\n",i,count1[i],i,count2[i],score);
+                    score+=1;   //相同則加分
                     
                 }
                 else{ //有字母次數不同
-                    System.out.printf("s1的%s有%d個s2的%s有%d個，\n",i,count1[i],i,count2[i]);
                     break;
                 }
                 
             }
             System.out.printf("l=%d,r=%d\n",l,r);
-            if(score==s1.length()) //如果找到
+            if(score==26) //如果找到
             {
                 return true;
             }
             if(r==(s2.length()-1)){ //window到底了
-                System.out.println("跳脫舒適圈");
                 break;
             }
             count2[s2.charAt(l)-'a']-=1;//window整個右移
