@@ -143,10 +143,8 @@ while(((r-l+1)-maxf)>k) //公式不滿足
 maxf= Math.max(maxf,count.getOrDefault(s.charAt(r), 0)); //存最大值並比較
 ```
 
-![](https://i.imgur.com/I5HRfNG.png)
-
 * **Time complexity：O(n)**
 * **Space complexity:O(1)**
 
-
+![](https://i.imgur.com/I5HRfNG.png)
 
