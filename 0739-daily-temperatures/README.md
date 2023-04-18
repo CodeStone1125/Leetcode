@@ -27,11 +27,11 @@
 import java.util.Stack;
 class Solution {
     public int[] dailyTemperatures(int[] temperatures) {
-        int[] res = new int[ temperatures.length ];
-        Stack<Integer> stack = new Stack<>(); //pair[value,index]
+        int[] res = new int[ temperatures.length ]; //存答案
+        Stack<Integer> stack = new Stack<>(); //存日子的index
         int stackInd=0;
         for(int i=0;i<temperatures.length;i++){
-            while((!stack.empty())&&(temperatures[stack.peek()]<temperatures[i])){
+            while((!stack.empty())&&(temperatures[stack.peek()]<temperatures[i])){//有較低溫的
                 stackInd=stack.pop();
                 res[stackInd]=i-stackInd;
             }
@@ -46,7 +46,7 @@ class Solution {
 ![image](https://github.com/Max-Chu1125/Leetcode/blob/main/0739-daily-temperatures/aHR0cHM6Ly9waWMubGVldGNvZGUtY24uY29tLzdhMTMzZTg1NzI3MWU2MzhjMDRiM2EyN2MxZWFiYzI5NTcwZTU4NWNjNDRkN2RhNjBlYjAzOTQ1OWE3Zjg5Y2QtNzM5LmdpZg.gif)
 
 
-
-
 * **Time complexity：O(n)** 
 * **Space complexity:O(n)**
+* 
+![](https://i.imgur.com/ZvxLbwI.png)
