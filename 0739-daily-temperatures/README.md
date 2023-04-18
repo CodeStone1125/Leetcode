@@ -19,3 +19,34 @@
 	<li><code>30 &lt;=&nbsp;temperatures[i] &lt;= 100</code></li>
 </ul>
 </div>
+
+<h2>解法一: Stack</h2>
+**Main idea**:利用Stack存還沒找到更高溫的日子，每次比較一個日子的溫度就把stack較低溫的日子，都pop並更新result array。
+
+```
+import java.util.Stack;
+class Solution {
+    public int[] dailyTemperatures(int[] temperatures) {
+        int[] res = new int[ temperatures.length ];
+        Stack<Integer> stack = new Stack<>(); //pair[value,index]
+        int stackInd=0;
+        for(int i=0;i<temperatures.length;i++){
+            while((!stack.empty())&&(temperatures[stack.peek()]<temperatures[i])){
+                stackInd=stack.pop();
+                res[stackInd]=i-stackInd;
+            }
+            stack.push(i);
+        }
+        return res;
+    }
+}
+```
+
+所以可得下列分支結果
+![image](https://github.com/Max-Chu1125/Leetcode/blob/main/0739-daily-temperatures/aHR0cHM6Ly9waWMubGVldGNvZGUtY24uY29tLzdhMTMzZTg1NzI3MWU2MzhjMDRiM2EyN2MxZWFiYzI5NTcwZTU4NWNjNDRkN2RhNjBlYjAzOTQ1OWE3Zjg5Y2QtNzM5LmdpZg.gif)
+
+
+
+
+* **Time complexity：O(n)** 
+* **Space complexity:O(n)**
