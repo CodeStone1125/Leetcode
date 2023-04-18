@@ -3,12 +3,10 @@ class Solution {
         int l=0;
         if(matrix.length!=1){
             while((matrix[l][matrix[l].length-1]<=target) && ((l+1)<=(matrix.length-1))){
-                System.out.printf("%d",l);
                 if(matrix[l][matrix[l].length-1]==target){
                     return true;
                 }
                 l++;
-                System.out.println(l);
             }
         }
         return search(matrix[l],target)!=-1;
