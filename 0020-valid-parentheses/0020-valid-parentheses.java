@@ -7,7 +7,6 @@ class Solution {
             System.out.println(s.charAt(i));
             if(s.charAt(i)=='('||s.charAt(i)=='{'||s.charAt(i)=='['){
                 stack.push(s.charAt(i));
-                System.out.printf("推%c\n",s.charAt(i));
             }
             else if(s.charAt(i)==')'){   
                 if(stack.empty()){
@@ -32,12 +31,10 @@ class Solution {
                     return false;
                 }
                 if(stack.pop()!='['){
-
                     return false;
                 }
             }
         }           
-        System.out.println(stack.empty());
         return stack.empty();
     }
         
