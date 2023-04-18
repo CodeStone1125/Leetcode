@@ -50,3 +50,56 @@ Then, the fleet (speed 2) and the car starting at 4 (speed 1) become one fleet, 
 	<li><code>0 &lt; speed[i] &lt;= 10<sup>6</sup></code></li>
 </ul>
 </div>
+
+<h2>解法一: Stack</h2>
+
+**Main idea:其實就是x軸為時間Y軸為初始位置，speed為斜率。計算交集的邏輯問題。**
+
+1. 比較方式:計算每台車的位置到終點的時間=(target-position)/speed。
+2. 因為無法超車，所以只要你的前面有車很慢，不管你多快都會被擋下來。
+3. 所以要從離終點最近的車子開始比較，因為更前面的車子都會受到影響。
+
+```
+class Solution {
+    public int carFleet(int target, int[] position, int[] speed) {
+        if (position.length == 1) return 1;
+        Stack<Double> stack = new Stack<>();
+        int[][] combine = new int[position.length][2];
+        for (int i = 0; i < position.length; i++) { //為了將車輛按照位置排序
+            combine[i][0] = position[i];
+            combine[i][1] = speed[i];
+        }
+
+        Arrays.sort(combine, java.util.Comparator.comparingInt(o -> o[0]));
+        for(int i=combine.length-1;i>=0;i--){
+            double currentTime= (double) (target-combine[i][0])/combine[i][1]; //幾秒到終點
+            if(!stack.empty()&& (stack.peek() >= currentTime)){ 
+                continue;
+            }
+            else{
+                stack.push(currentTime);//不同fleet
+            }
+
+        }
+        return stack.size();
+    }
+}
+```
+* stack頂部的記錄的是在你前面車子到達終點的時間。
+* 如果你的時間比對方長代表你不會被擋到，所以不會加入同一fleet。
+* 因此把你放入stack因為你成為那個可能擋到別車的車。
+```
+if(!stack.empty()&& (stack.peek() >= currentTime)){ 
+    continue;
+}
+else{
+    stack.push(currentTime);//不同fleet
+}
+
+```
+
+* **Time complexity：O(nlogn)** 
+* **Space complexity:O(n)**
+
+![](https://i.imgur.com/TUASvWJ.png)
+
