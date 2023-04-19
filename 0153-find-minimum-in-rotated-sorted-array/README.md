@@ -44,3 +44,44 @@
 	<li><code>nums</code> is sorted and rotated between <code>1</code> and <code>n</code> times.</li>
 </ul>
 </div>
+
+<h2>解法一: Binary Search</h2>
+
+**Main idea**:做法和binary search幾乎相同，但背後思想有些不同，以下圖為例：(升冪)
+![](https://i.imgur.com/m2dTpfZ.png)
+
+1. 如果沒有rotate則剛好最小的在最左，最大最右
+2. mid如果比左邊大，那代表mid屬於左邊的部分代表最小的在mid右邊=>l移到mid+1
+4. 反之代表最小的在mid左邊，ie:min不在mid右邊:=>r移到mid
+![](https://i.imgur.com/vIv4J0c.png)
+
+
+```
+class Solution {
+
+    public int findMin(int[] nums) {
+        int l = 0;
+        int r = nums.length - 1;
+
+        while (l <= r) {
+            if (nums[l] <= nums[r]) { //左<=中
+                return nums[l];
+            }
+
+            int mid = (l + r) / 2;
+            if (nums[mid] >= nums[l]) {
+                l = mid + 1;
+            } else {   //左>中
+                r = mid;
+            }
+        }
+        return 0;
+    }
+}
+```
+
+* **Time complexity：O(logn)** 
+* **Space complexity:O(1)**
+
+![](https://i.imgur.com/ztn3hAu.png)
+
