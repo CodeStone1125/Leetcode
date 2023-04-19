@@ -28,3 +28,54 @@
 	<li><code>-10<sup>4</sup> &lt;= target &lt;= 10<sup>4</sup></code></li>
 </ul>
 </div>
+<h2>解法一: Binary Search</h2>
+
+**Main idea**:rotated的依然有一半是完全sorted(觀察可得)
+1. 判斷mid是屬於左邊sorted part還右邊 sort part
+2. 只有sorted的部分可以確認排除
+3. 以下圖為例target>mid或是target<left就可以確認排除左邊
+
+![](https://i.imgur.com/m2dTpfZ.png)
+
+```
+class Solution {
+    public int search(int[] nums, int target) {
+        int l = 0;
+        int r = nums.length - 1;
+
+        while (l <= r) {
+            int mid = (l + r) / 2;
+            if(nums[mid] == target){
+                return mid;
+            }
+            if (nums[mid] >= nums[l]){ //left sorted
+                if((nums[l] > target)||(target>nums[mid])){ //絕對不在左邊
+                    l = mid + 1;
+                }
+                else{
+                    r=mid - 1;
+                }        
+            } 
+            else{ //right sorted
+                if((nums[mid] > target)||(target>nums[r])){ //絕對不在右邊
+                    r = mid - 1;
+                }
+                else{
+                    l = mid + 1;
+                }             
+            } 
+            
+        }
+        return -1;        
+    }
+}
+```
+
+
+
+
+
+* **Time complexity：O(logn)** 
+* **Space complexity:O(1)**
+
+![](https://i.imgur.com/cizry3P.png)
