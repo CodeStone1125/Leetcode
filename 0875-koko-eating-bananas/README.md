@@ -34,3 +34,61 @@
 	<li><code>1 &lt;= piles[i] &lt;= 10<sup>9</sup></code></li>
 </ul>
 </div>
+
+<h2>解法一: 暴力解</h2>
+
+**Main idea:帶入k=1~最大值。**
+* **Time complexity：O(n*length(piles))** 
+* **Space complexity:O(1)**
+
+
+<h2>解法二: Binary Search</h2>
+
+```
+class Solution {
+    public int minEatingSpeed(int[] piles, int h) {
+        int min = 1;
+        int Max = piles[0];
+        int sum=0;
+        for(int i=0;i<piles.length;i++){ //找到最大值
+                Max=Math.max(piles[i],Max); 
+        }
+        int mid=0;
+        while(min<Max){
+            sum=0;
+            mid=(min+Max)/2;
+            for(int i=0;i<piles.length;i++){
+                sum+=Math.ceil((double)piles[i]/mid); 
+            }
+
+            if(sum<=h){ //mid太大
+                Max=mid;      
+            }
+            else if(sum>h){ //mid太小
+                min=mid+1;
+            }
+        }
+        return Max;
+    }
+}
+```
+* 要返回Double 取上限才有用
+```
+for(int i=0;i<piles.length;i++){
+    sum+=Math.ceil((double)piles[i]/mid); 
+}
+```
+* 因為這邊只要可以小於hours所以條件取(sum<=h)且MAX=mid(而不是和binary search一樣取MAX=mid+1)
+
+```
+if(sum<=h){ //mid太大
+    Max=mid;      
+}
+```
+
+* **Time complexity：O(logn*length(piles))** 
+* **Space complexity:O(1)**
+
+![](https://i.imgur.com/qT50Fbt.png)
+
+
