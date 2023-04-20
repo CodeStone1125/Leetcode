@@ -45,3 +45,52 @@
 	<li><code>Node.random</code> is <code>null</code> or is pointing to some node in the linked list.</li>
 </ul>
 </div>
+<h2>解法一: Two pass</h2>
+
+**Main idea**:因為在node創建之前無法連結next和random
+1. Pass1:建立所有node，並用hashmap對照本尊到copy
+2. 連結next和random
+```
+/*
+// Definition for a Node.
+class Node {
+    int val;
+    Node next;
+    Node random;
+
+    public Node(int val) {
+        this.val = val;
+        this.next = null;
+        this.random = null;
+    }
+}
+*/
+
+class Solution {
+    public Node copyRandomList(Node head) {
+        Node cur = head;
+        HashMap<Node, Node> map = new HashMap<>();
+        while (cur != null) {
+            map.put(cur,new Node(cur.val));
+            cur=cur.next;
+        }
+        cur = head;
+        while (cur != null) {
+            map.get(cur).next=map.get(cur.next);
+            map.get(cur).random=map.get(cur.random);
+            cur=cur.next;
+        }
+        return map.get(head);
+    }
+}
+```
+
+
+
+
+
+
+* **Time complexity：O(n)** 
+* **Space complexity:O(n)**
+
+![](https://i.imgur.com/k2s6P9q.png)
