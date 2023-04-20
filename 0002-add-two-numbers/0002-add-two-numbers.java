@@ -40,21 +40,13 @@ class Solution {
                 tail=tail.next;
             }
         }
-        System.out.println(prod);
         while(prod!=0){
                 tail.next = new ListNode(prod%10);
                 prod= prod / 10;
                 tail=tail.next;
         }
-        printLinkedList(dummy);
         return dummy.next;
     }
     
-    void printLinkedList(ListNode head) {
-        while (head != null) {
-            System.out.print(head.val + " ");
-            head = head.next;
-        }
-        System.out.println();
-    }
+
 }
