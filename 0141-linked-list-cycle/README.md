@@ -38,3 +38,48 @@
 <p>&nbsp;</p>
 <p><strong>Follow up:</strong> Can you solve it using <code>O(1)</code> (i.e. constant) memory?</p>
 </div>
+
+<h2>解法一: Two pointer</h2>
+
+**Main idea**:分別利用快(一次兩步)慢指標(一次兩步)
+1. 有cycle的linklist不可能跑到null
+2. 進入cycle後slow才有可能被fast追上(就像操場賽跑)
+```
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        if(head==null || head.next==null){ 
+            return false;
+        }
+        while(fast!=null){
+            slow = slow.next;
+            fast = fast.next;
+            if(fast==null){
+                break;
+            }
+            fast = fast.next;
+            if(slow==fast){
+                return true;
+            }
+        }
+        return false;  
+    }
+}
+```
+
+* **Time complexity：O(n)** 
+* **Space complexity:O(1)**
+
+![](https://i.imgur.com/LBAx2Jk.png)
