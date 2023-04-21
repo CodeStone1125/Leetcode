@@ -30,10 +30,8 @@ class Solution {
                 ans = true;
                 return;
             }
-        }
-        
+        } 
         // Perform some operation on the current node
-        System.out.println(root.val);
         // Traverse the left subtree
         traverse(root.left , subRoot);
         // Traverse the right subtree
@@ -60,7 +58,5 @@ class Solution {
         }
         
         return true;
-        
-        
     }
 }
