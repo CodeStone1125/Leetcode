@@ -26,7 +26,6 @@ class Solution {
             return;
         }
         // Print the height of the current node
-        System.out.println("Node " + root.val + " is at height " + height);
         List<Integer> temp = map.getOrDefault(height,new ArrayList<Integer>());
         temp.add(root.val);
         map.put(height,temp);
