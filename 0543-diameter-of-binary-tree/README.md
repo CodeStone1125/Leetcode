@@ -68,7 +68,8 @@ class Solution {
 * **Time complexity：O(n)** //因為要跑過所有節點 
 * **Space complexity:O(1)**
 
-![](https://i.imgur.com/yd1eDkL.png)
+![](https://i.imgur.com/pyYKl76.png)
+
 
 
 
