@@ -42,3 +42,142 @@ lRUCache.get(4);    // return 4
 	<li>At most <code>2 * 10<sup>5</sup></code> calls will be made to <code>get</code> and <code>put</code>.</li>
 </ul>
 </div>
+
+<h2>解法</h2>
+
+**Main idea**:我們設定left是LRU的dummy node，right
+1. 為了方便追蹤前一個和後一個node所以使用的是double linklist
+2. put與get會時常需要更新linklist的位置，所以額外撰寫insert和remove來進行節點位置更新
+3. 利用hashmap來做為紀錄linknode的key直接map到node
+```
+class LRUCache {
+    private Map<Integer, Node> cache;
+    private int capacity;
+    
+    private Node left;
+    private Node right; 
+
+    
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+        cache = new HashMap<>(); 
+        
+        this.left = new Node(0,0);//left: LRU , right: recent
+        this.right = new Node(0,0);
+        this.left.next = this.right;
+        this.right.prev = this.left;
+    }
+    
+    public int get(int key) {
+        if(cache.containsKey(key)){
+            remove(cache.get(key));
+            insert(cache.get(key));
+            return cache.get(key).val;
+        }
+        else{
+            return -1;
+        }
+    }
+    
+    public void put(int key, int value) {
+        if(cache.containsKey(key)){
+            remove(cache.get(key));
+        }
+        cache.put(key, new Node(key, value));
+        insert(cache.get(key));
+        
+        if(cache.size()>capacity){
+            Node lru = left.next;
+            remove(lru);
+            cache.remove(lru.key);
+        }
+    }
+    
+    public void insert(Node node)  {
+        Node prev = this.right.prev;
+        Node next = this.right;
+        prev.next = node;
+        next.prev = node;
+        node.next = next;
+        node.prev = prev;
+        
+    }
+    
+    public void remove(Node node)  {
+        Node prev = node.prev;
+        Node next = node.next;
+        
+        prev.next = next;
+        next.prev = prev;
+        
+    }
+
+    private class Node{
+        private int key;
+        private int val;
+        
+        Node next;
+        Node prev;
+        
+        public Node(int key,int val){
+            this.key = key;
+            this.val = val;
+        }
+    }
+    
+}
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */
+```
+
+
+需要注意的是put，如果在已經到達capacity的上限時，要記得把LRU的 victim node移出，同時hashmap中的資訊也要移掉。
+```
+public void put(int key, int value) {
+    if(cache.containsKey(key)){
+        remove(cache.get(key));
+    }
+    cache.put(key, new Node(key, value));
+    insert(cache.get(key));
+
+    if(cache.size()>capacity){
+        Node lru = left.next;
+        remove(lru);
+        cache.remove(lru.key);
+    }
+}
+```
+
+另外在hashmap中的node沒有所謂的順序，因為hashmap只是作為pointer的存在，因此insert和remove都沒有對hashmap做操作。
+
+```
+
+public void insert(Node node)  {
+    Node prev = this.right.prev;
+    Node next = this.right;
+    prev.next = node;
+    next.prev = node;
+    node.next = next;
+    node.prev = prev;
+
+}
+
+public void remove(Node node)  {
+    Node prev = node.prev;
+    Node next = node.next;
+
+    prev.next = next;
+    next.prev = prev;
+
+}
+```
+
+![](https://i.imgur.com/yd1eDkL.png)
+
+
+
+
