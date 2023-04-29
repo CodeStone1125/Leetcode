@@ -14,30 +14,38 @@
  * }
  */
 class Solution {
-    Map<Integer, List<Integer>> map = new HashMap<>();
+    
     public List<Integer> rightSideView(TreeNode root) {
-        traverse(root, 1);
-        List<List<Integer>> listOfLists = new ArrayList<>(map.values());
         List<Integer> ans = new ArrayList<>();
-        for (List<Integer> list : listOfLists) {
-            int lastIndex = list.size() - 1;
-            int lastElement = list.get(lastIndex);
-            ans.add(lastElement);
-        }       
-        return ans;
-        
-    }
-   public void traverse(TreeNode root, int height) {
-        if (root == null) {
-            return;
+        if(root==null){
+            return ans;
         }
-        // Print the height of the current node
-        List<Integer> temp = map.getOrDefault(height,new ArrayList<Integer>());
-        temp.add(root.val);
-        map.put(height,temp);
-        // Traverse the left subtree
-        traverse(root.left, height + 1);
-        // Traverse the right subtree
-        traverse(root.right, height + 1);
+        bfs(ans, root);
+        return ans;
+    }
+    public void bfs(List<Integer> ans, TreeNode root) {
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        System.out.println("root " + root.val);
+        while(!q.isEmpty()){
+            int levelSize = q.size();
+            for(int i=levelSize;i>=1;i--){ //BFS
+                TreeNode cur = q.poll();
+                if(i==1) {
+                    ans.add(cur.val);
+                    System.out.println("ans加入 " + cur.val);
+                } //加入最右邊的元素
+                if(cur.left !=null ) {
+                    q.add(cur.left); 
+                    System.out.println("加入 " + cur.left.val);
+                }
+                if(cur.right !=null ) {
+                    q.add(cur.right); 
+                    System.out.println("加入 " + cur.right.val);
+                }
+            }
+            
+        }
+        
     }
 }
