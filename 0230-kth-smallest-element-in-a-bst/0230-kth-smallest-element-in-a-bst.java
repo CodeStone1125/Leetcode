@@ -19,7 +19,6 @@ class Solution {
         List<Integer>list=new ArrayList();
         dfs(root, list);
         Collections.sort(list); 
-        System.out.println(list);
         return list.get(k-1);
         
     }
