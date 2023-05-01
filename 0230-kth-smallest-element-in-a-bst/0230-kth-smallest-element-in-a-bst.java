@@ -14,20 +14,26 @@
  * }
  */
 class Solution {
-    
+    int kmin = 0;
+    int count = 0;
     public int kthSmallest(TreeNode root, int k) {
-        List<Integer>list=new ArrayList();
-        ldr(root, list); 
-        return list.get(k-1);
+        
+        ldr(root, k); 
+        return kmin;
         
     }
-    public void ldr(TreeNode root, List<Integer> list){
+    public void ldr(TreeNode root,int k){
         if(root==null){
             return;
         }
-        ldr(root.left, list);
-        list.add(root.val);
-        ldr(root.right, list);
+        
+        ldr(root.left, k);
+        count++;
+        if(count==k){
+            kmin = root.val;
+            return;
+        }
+        ldr(root.right, k);
         
     }
 }
