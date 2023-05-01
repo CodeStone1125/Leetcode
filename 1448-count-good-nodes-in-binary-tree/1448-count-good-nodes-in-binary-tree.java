@@ -14,19 +14,33 @@
  * }
  */
 class Solution {
-
+    int good = 0;
     public int goodNodes(TreeNode root) {
-        return helper(root, -99999);
+        if(root == null)
+        {
+            return good;
+        }
+        else{
+            good=1;   
+        }
+        count(root, -99999);
+        return good;
     }
-
-    public int helper(TreeNode root, int max) {
-        if (root == null) return 0;
-
-        int res = root.val >= max ? 1 : 0;
-
-        res += helper(root.left, Math.max(root.val, max));
-        res += helper(root.right, Math.max(root.val, max));
-
-        return res;
+    public void count(TreeNode root, int max) {
+        if(root == null)
+        {
+            return;
+        }
+        if(root.val > max){
+            max = root.val;
+        }
+        if((root.right!=null)&&(root.right.val >= max)){
+            good++;
+        }
+        if((root.left!=null)&&(root.left.val >= max)){
+            good++;
+        }
+        count(root.left, max);
+        count(root.right, max);
     }
 }
