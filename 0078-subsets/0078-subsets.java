@@ -14,8 +14,10 @@ class Solution {
         if(start>=nums.length){
             ans.add(new ArrayList<>(list));
         }else{
+            //有該元素的
             list.add(nums[start]);
             adder(ans, start+1, nums, list);
+            //沒該元素的
             list.remove(list.size()-1);
             adder(ans, start+1, nums, list);
         }
