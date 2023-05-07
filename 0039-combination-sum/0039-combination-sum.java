@@ -12,7 +12,6 @@ class Solution {
         , int start
         
     ){
-        System.out.println(list);
         if(target == total){
             ans.add(new ArrayList<>(list));
             return;
