@@ -1,35 +1,29 @@
 class Solution {
-    List<Integer> list = new ArrayList();
-    List<List<Integer>> ans = new ArrayList();
+
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         Arrays.sort(candidates);
-        helper(candidates, 0, target, 0);
+        List<List<Integer>> ans = new ArrayList<List<Integer>>();
+        List<Integer> ls = new ArrayList<Integer>();
+        comb(candidates, target, ans, ls, 0);
         return ans;
     }
-    private void helper(
-        int[] candidates   
-        , int total
-        , int target
-        , int start
-        
-    ){
-        if(target == total){
-            ans.add(new ArrayList<>(list));
-            return;
-        }
-        if(start > candidates.length - 1|| total > target){
-            return;
-        }        
-        else{
-            for (int i = start; i < candidates.length; i++) {
-                if (i > start && candidates[i] == candidates[i - 1]) continue;
-                list.add(candidates[i]);
-                helper(candidates, total + candidates[i], target, i + 1);
-                list.remove(list.get(list.size() - 1));
-            }
-            
-        }
-         
 
+    public void comb(
+        int[] candidates,
+        int target,
+        List<List<Integer>> ans,
+        List<Integer> ls,
+        int index
+    ) {
+        if (target == 0) {
+            ans.add(new ArrayList(ls));
+        } else if (target < 0) return; else {
+            for (int i = index; i < candidates.length; i++) {
+                if (i > index && candidates[i] == candidates[i - 1]) continue;
+                ls.add(candidates[i]);
+                comb(candidates, target - candidates[i], ans, ls, i + 1);
+                ls.remove(ls.get(ls.size() - 1));
+            }
+        }
     }
 }
