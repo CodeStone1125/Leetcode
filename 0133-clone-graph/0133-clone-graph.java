@@ -35,7 +35,6 @@ class Solution {
         Queue<Node> queue = new LinkedList<>();
         visit.add(node);
         queue.add(node);
-        System.out.println(node.val);
         while(!queue.isEmpty()){
             Node temp = queue.poll();
             for(Node n: temp.neighbors){
@@ -43,7 +42,6 @@ class Solution {
                     queue.add(n);
                     visit.add(n);
                     nodeMap.put(n, new Node(n.val));
-                    System.out.println(n.val);
                 }
             }
             
@@ -62,7 +60,6 @@ class Solution {
                 if(!visit.contains(n)){
                     queue.add(n);
                     visit.add(n);
-                    System.out.println(n.val);
                 }
                 temp_copy.neighbors.add(nodeMap.getOrDefault(n, new Node()));
             }
