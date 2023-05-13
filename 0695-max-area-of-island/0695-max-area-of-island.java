@@ -1,52 +1,28 @@
 class Solution {
+
     public int maxAreaOfIsland(int[][] grid) {
-        if(grid == null) return 0;
         int ans = 0;
-        int rows = grid.length;
-        int cols = grid[0].length;
-        boolean[][] visit = new boolean[rows][cols];
-        for(int r = 0; r <= rows -1;r++){
-            for(int c = 0; c <= cols - 1;c++){
-                if((!visit[r][c] && grid[r][c] == 1) ){
-                    ans = Math.max(bfs(grid, r, c, visit), ans);
-                }
+        int m = grid.length;
+        int n = grid[0].length;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == 1) ans =
+                    Math.max(dfs(grid, i, j, m, n, new int[] { 0 }), ans);
             }
         }
         return ans;
     }
-    public int bfs(int[][] grid, int rows, int cols, boolean[][] visit){
-        int count = 1;
-        visit[rows][cols] = true;
-        Queue<int[]> queue = new LinkedList<>();
-        queue.add(new int[]{rows, cols});
-        int[][] direction = {
-            {1, 0},
-            {-1, 0},
-            {0, 1},
-            {0, -1}
-        };
-        while(!queue.isEmpty()){
-            int[] removedPair = queue.poll();
-            int r = removedPair[0];
-            int c = removedPair[1];
-            for(int[] dir:direction){
-                int newRow = r + dir[0];
-                int newCol = c + dir[1];
-                if(newRow < grid.length 
-                   && newRow >= 0
-                   && newCol < grid[0].length 
-                   && newCol >= 0
-                   &&!visit[newRow][newCol] 
-                   && grid[newRow][newCol] == 1
-                ){
-                    queue.add(new int[]{newRow, newCol});
-                    visit[newRow][newCol] = true;
-                    count++;
-                }
-                
-            }
-        }
-        return count;
-        
+
+    public int dfs(int[][] grid, int i, int j, int m, int n, int[] count) {
+        if (
+            i < 0 || j < 0 || i >= m || j >= n || grid[i][j] == 0
+        ) return count[0];
+        count[0]++;
+        grid[i][j] = 0;
+        dfs(grid, i - 1, j, m, n, count);
+        dfs(grid, i + 1, j, m, n, count);
+        dfs(grid, i, j - 1, m, n, count);
+        dfs(grid, i, j + 1, m, n, count);
+        return count[0];
     }
 }
