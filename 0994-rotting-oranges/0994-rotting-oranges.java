@@ -22,7 +22,7 @@ class Solution {
                 if(grid[r][c] != 0) count++;
                 if(grid[r][c] == 2){
                     q.offer(new int[]{r, c, 0});
-                    System.out.printf("[%d, %d, 0]\n", r, c);
+                    // System.out.printf("[%d, %d, 0]\n", r, c);
                 }
             }
         }
@@ -42,7 +42,7 @@ class Solution {
                 q.offer(new int[]{tempr, tempc, loc[2]+1});
                 temp[tempr][tempc] = 1;
                 Max = Math.max(Max, loc[2]+1);
-                System.out.printf("[%d, %d, %d]\n", tempr, tempc, loc[2]+1);
+                // System.out.printf("[%d, %d, %d]\n", tempr, tempc, loc[2]+1);
             }
         }
         if(count != 0) return -1;
