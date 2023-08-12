@@ -124,7 +124,6 @@ class Solution {
         List<Integer> list = Map.getOrDefault(num, new ArrayList<Integer>());
         if(list.size() == 0){
             if(!ans.contains(num)){
-                System.out.println("add");
                 ans.add(num);
             }
             return true;
@@ -140,9 +139,8 @@ class Solution {
             if(!check(x, Map, VisitSet, ans)) return false;
             VisitSet.remove(x);
         }
-        
+
         ans.add(num);
-        System.out.println("finish");
         return true;
     }
 }
