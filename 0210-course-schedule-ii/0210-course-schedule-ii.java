@@ -1,4 +1,86 @@
-
+// class Solution {
+    
+//     ArrayList[] graph;
+    
+    
+//     public int[] findOrder(int numCourses, int[][] prerequisites) {
+        
+//         //intialize graph 
+//         graph = new ArrayList[numCourses];
+//         for(int i = 0; i < numCourses; i++){
+//             graph[i] = new ArrayList();
+//         }
+        
+        
+//         //construct graph
+//         for(int[] num:prerequisites){
+//             graph[num[1]].add(num[0]);
+//         }
+           
+        
+//         //construct 4 set
+//         Set<Integer> whiteset = new HashSet<Integer>();
+//         Set<Integer> grayset = new HashSet<Integer>();
+//         Set<Integer> blackset = new HashSet<Integer>();
+        
+        
+//         //intialize whiteset
+//         for(int i = 0; i < numCourses; i++){
+//             whiteset.add(i);
+//         }
+        
+            
+//         //DFS for all class
+//         List<Integer> order = new ArrayList<Integer>();
+        
+        
+//         while(whiteset.size() > 0){
+//             int temp = whiteset.iterator().next();
+//             if(dfs(whiteset, grayset, blackset, order, temp)) return new Int[];
+//         }
+        
+//         return order;
+          
+//     }
+    
+    
+//     //Dfs
+//     public boolean dfs(Set<Integer> whiteset, Set<Integer> grayset, Set<Integer> blackset, List<Integer> order, int temp){
+        
+//         order.add(temp);
+        
+//         //first shift items from white to gray
+//         shiftitem(whiteset, grayset, temp);
+        
+        
+//         //get the adjacency list of graph item
+//         ArrayList<Integer> adj = graph[temp];
+        
+        
+//         //track order
+//         order.add(temp);
+//         if(order.size() == numCourses) return false;
+        
+        
+//         //check all nodes from adjacency list
+//         for(int var: adj){
+//             if(blackset.contains(var))
+//                 continue;
+//             if(grayset.contains(var))
+//                 return true;
+//             if((dfs(whiteset, grayset, blackset, order, var) ))
+//                 return true;
+    
+//         }
+//     }
+    
+    
+//     //Change element
+//     public void shiftitem(Set<Integer> set1, Set<Integer> set2, int item){
+//         set1.remove(item);
+//         set2.add(item);
+//     }
+// }
 
 class Solution {
     public int[] findOrder(int numCourses, int[][] prerequisites) {
